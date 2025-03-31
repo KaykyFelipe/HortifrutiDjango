@@ -5,7 +5,7 @@
 */
 //
 // Scripts
-// 
+//
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -32,3 +32,20 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+
+
+
+document.getElementById('valor-input').addEventListener('input', function(e) {
+        // Remove tudo que não é número ou ponto
+        var value = this.value.replace(/[^0-9.]/g, '');
+
+        // Garante que há apenas um ponto decimal
+        var parts = value.split('.');
+        if (parts.length > 2) {
+            value = parts[0] + '.' + parts.slice(1).join('');
+        }
+
+        // Atualiza o valor do campo
+        this.value = value;
+    });

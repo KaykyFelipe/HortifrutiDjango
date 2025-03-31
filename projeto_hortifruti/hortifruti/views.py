@@ -1,18 +1,52 @@
-from django.shortcuts import render
-from .models import VendasModel
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from hortifruti.models import VendasModel
+from hortifruti.repository import Repository
+
+
+repository = Repository()
 
 def index(request):
-    return render(request, 'index.html')
+
+    context = repository.listarUltimasVendas(request)
+
+    return render(request, 'index.html', context)
+
 
 def registrarVendas(request):
-    # Salvar os dados no banco
-    nova_venda = VendasModel()
-    nova_venda.id_venda = request.POST.get('id_venda')
-    nova_venda.valor = request.POST.get('valor')
-    nova_venda.data = request.POST.get('data')
-    nova_venda.save()
 
-    vendas = {
-        'vendas': VendasModel.objects.all()
-    }
-    return render(request, 'index.html', vendas)
+    # Salvar os dados no banco
+    repository.registrarVendas(request)
+
+    return redirect('index')
+
+
+def gerenciadorPage(request):
+
+    context = repository.listarUltimasVendas(request)
+
+    return render(request, 'gerenciadorPAGE.html', context)
+
+
+def editar_venda(request, id_venda):
+
+
+    if request.method == 'POST':
+        # Processa o formulário de edição
+        venda = repository.editarVenda(request, id_venda)
+        messages.success(request, f'Venda #{id_venda} atualizada com sucesso!')
+        return redirect('listar_vendas')  # Redireciona para a página de listagem
+    else:
+        # Exibe o formulário de edição
+        venda = repository.obterVenda(id_venda)
+        return render(request, 'editarVendaPage.html', {'venda': venda})
+
+def remover_venda(request, id_venda):
+
+    repository.removerVenda(id_venda)
+    messages.success(request, f'Venda #{id_venda} removida com sucesso!')
+    return redirect('listar_vendas')  # Redireciona para a página de listagem
+
+def listar_vendas(request):
+    context = repository.listarUltimasVendas(request)
+    return render(request, 'gerenciadorPAGE.html', context)

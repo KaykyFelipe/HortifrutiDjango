@@ -22,7 +22,10 @@ from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name = "index.html")),
+    path('', views.index, name='index'),
     path('registrar/', views.registrarVendas, name='registrar_vendas'),
+    path('gerenciadorvendas/', views.gerenciadorPage, name='gerenciador_Page'),
+    path('vendas/editar/<int:id_venda>/', views.editar_venda, name='editar_venda'),
+    path('vendas/remover/<int:id_venda>/', views.remover_venda, name='remover_venda'),
+    path('vendas/', views.listar_vendas, name='listar_vendas'),
 ]
