@@ -28,6 +28,14 @@ def gerenciadorPage(request):
     return render(request, 'gerenciadorPAGE.html', context)
 
 
+def relatorioPage(request):
+    """
+    View que renderiza a página de relatório de vendas
+    """
+    context = repository.relatorioVendas(request)
+    return render(request, 'relatorioPage.html', context)
+
+
 def editar_venda(request, id_venda):
 
 
