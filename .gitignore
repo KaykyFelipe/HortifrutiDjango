@@ -1,0 +1,43 @@
+# Ambiente virtual
+.env/
+venv/
+ENV/
+env/
+.venv/
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de log
+*.log
+
+# Banco de dados SQLite
+*.sqlite3
+
+# Configs e envs locais
+*.env
+*.local
+*.bak
+*.swp
+
+# VSCode
+.vscode/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Migrations (opcional — se quiser versionar, remova essa linha)
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Node.js (se usar no frontend)
+node_modules/
+
+# Arquivos de build
+dist/
+build/
+*.egg-info/
+
